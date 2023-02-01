@@ -1,8 +1,8 @@
 <?php
 
 /**
- * サービスサーバ
- * アプリ向けインタフェース  ・アップデート情報  ・コンテンツ情報  ・ユーザ情報  コミュニケーション基盤向けインタフェース  ・ユーザ情報
+ * CQXR開発テスト
+ * CQXR開発テスト用API群
  * PHP version 7.2.5
  *
  * The version of the OpenAPI document: 1.0.0

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * サービスサーバ
- * アプリ向けインタフェース  ・アップデート情報  ・コンテンツ情報  ・ユーザ情報  コミュニケーション基盤向けインタフェース  ・ユーザ情報
+ * CQXR開発テスト
+ * CQXR開発テスト用API群
  * PHP version 7.2.5
  *
  * The version of the OpenAPI document: 1.0.0
@@ -22,103 +22,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /**
- * post getAssetbundle
- * Summary: AssetBundle取得
- * Notes: アプリ上のAssetBundleが古いもしくは存在しない場合に、サービスサーバ経由でLBEにAssetBundleのURLを要求する。サービスサーバは、AssetBundleダウンロードURLを返却する。
+ * get _0
+ * Summary: 指定ユーザー表示
+ * Notes: 指定ユーザーを表示するAPI
  * Output-Formats: [application/json]
  */
-Route::post('/content_app/v1/get_assetbundle', 'ContentController@getAssetbundle');
+Route::get('/user/{user_id}', 'CollectionController@_0');
 /**
- * get map
- * Summary: 広域マップ情報取得
- * Notes: V万博エリアに含まれる会場エリア一覧を取得する。 アプリにDL済のAssetBundleが最新か判断するため、SSVからAssetBundleのバージョンを取得する。
+ * get 
+ * Summary: ユーザー一覧を表示
+ * Notes: ユーザー一覧を表示するAPI
  * Output-Formats: [application/json]
  */
-Route::get('/content_app/v1/map/{space_id}', 'ContentController@map');
-/**
- * get spaceAccessList
- * Summary: 空間アクセスリスト取得
- * Notes: 空間情報のリスト、及びアクセス権限有無を取得する
- * Output-Formats: [application/json]
- */
-Route::get('/content_app/v1/space_access_list', 'ContentController@spaceAccessList');
-/**
- * get spaceInfo
- * Summary: 空間メタ情報取得
- * Notes: 選択した空間の情報を取得する。  アプリにDL済のAssetBundleが最新か判断するため、SSVからAssetBundleのバージョンを取得する。
- * Output-Formats: [application/json]
- */
-Route::get('/content_app/v1/space_info/{space_id}', 'ContentController@spaceInfo');
-/**
- * post transitionInfo
- * Summary: 遷移情報取得
- * Notes: 遷移先の空間IDを取得する。
- * Output-Formats: [application/json]
- */
-Route::post('/content_app/v1/transition_info', 'ContentController@transitionInfo');
-/**
- * post checkUpdate
- * Summary: アプリアップデート確認
- * Notes: 万博アプリケーションのアップデート要否をサービスサーバで判断し、アップデートフラグ (0:なし 1:任意 2:強制)を返却する。
- * Output-Formats: [application/json]
- */
-Route::post('/update_app/v1/check_update', 'UpdateController@checkUpdate');
-/**
- * get photonAuth
- * Summary: PhotonFusionカスタム認証
- * Notes: サービスアプリが、同期エンジン(PhotonFusion）に接続する際に、正常のユーザーからのアクセスかを確認する。  同期エンジンへ接続する場合のセッションの有効期間は1分とする。
- * Output-Formats: [application/json]
- */
-Route::get('/user/v1/photon_auth', 'UserController@photonAuth');
-/**
- * get authenticationCallback
- * Summary: 認証結果コールバック
- * Notes: 外部サービスの認証結果を受け付け、リダイレクト先URLを返却する。&lt;br&gt; 認証成功した際に外部OPからAuth0トークンを取得し、情報をSSVに登録する。&lt;br&gt; サービスサーバアクセストークンを払出し、SSVに登録して、アプリに返却する。
- * Output-Formats: [text/html, application/json]
- */
-Route::get('/user_app/v1/authentication_callback', 'UserController@authenticationCallback');
-/**
- * get authenticationUrl
- * Summary: 認証URL取得
- * Notes: 外部サービスの認証要求URLを要求する。
- * Output-Formats: [text/html, application/json]
- */
-Route::get('/user_app/v1/authentication_url', 'UserController@authenticationUrl');
-/**
- * post consentState
- * Summary: 同意状態登録
- * Notes: ユーザ毎に利用規約のバージョンと、プライバシーポリシーの同意状態をSSVに保存する。
- * Output-Formats: [application/json]
- */
-Route::post('/user_app/v1/consent_state', 'UserController@consentState');
-/**
- * delete deletion
- * Summary: ログイン情報削除
- * Notes: ログアウト時にサービスサーバアクセストークンを削除する。
- * Output-Formats: [application/json]
- */
-Route::delete('/user_app/v1/login/deletion', 'UserController@deletion');
-/**
- * get state
- * Summary: ログイン状態取得
- * Notes: ユーザのログイン状態を確認するため、アプリからSSVへサービスサーバアクセストークンの存在確認及び有効期限の確認を行う。&lt;br&gt; （ログイン時のセッションの有効期間は15日間とする。）
- * Output-Formats: [application/json]
- */
-Route::get('/user_app/v1/login/state', 'UserController@state');
-/**
- * get telexusAccesstoken
- * Summary: TeleXusアクセストークン取得
- * Notes: SSV側でCRI TeleXusのアクセストークンを払出し取得する。
- * Output-Formats: [application/json]
- */
-Route::get('/user_app/v1/telexus_accesstoken', 'UserController@telexusAccesstoken');
-/**
- * get userInfo
- * Summary: ユーザ情報取得
- * Notes: ① ログイン認証後に払出されたサービスサーバアクセストークンを渡して、ユーザIDを取得する。  ② ユーザIDからユーザ管理テーブルのユーザ情報を取得する。
- * Output-Formats: [application/json]
- */
-Route::get('/user_app/v1/user_info', 'UserController@userInfo');
+Route::get('/userlist', 'CollectionController@');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
