@@ -19,7 +19,30 @@
 
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+// use App\user;
+// use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
+   return view('welcome');
 });
+Route::resource('/userlist', UserlistController::class);
+Route::resource('/user/{id}', UserController::class);
+
+
+// Route::get('userlist', function () {
+//     $userlist = user::all();
+//     $r = array();
+//     $r['floor'] = $userlist;
+//     return response()->json($r);
+//     // return view('userlist', compact('userlist'));
+// });
+
+// Route::get('/user', function (Request $request,$id = null) {
+//     return view('user');
+
+//     // $userlist = user::all();
+//     // return view('userlist', compact('userlist'));
+// });
+
+// Route::get('/user/{id}', 'User@index');
