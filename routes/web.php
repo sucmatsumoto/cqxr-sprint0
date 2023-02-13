@@ -26,8 +26,13 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
    return view('welcome');
 });
-Route::resource('/userlist', UserlistController::class);
-Route::resource('/user/{id}', UserController::class);
+// Route::resource('/userlist', UserlistController::class);
+// Route::resource('/user/{id}', UserController::class);
+
+Route::resource('/user_regist', UserRegistController::class);
+Route::resource('/user_update', UserUpdateController::class);
+Route::resource('/user_delete/{id}', UserDeleteController::class);
+
 
 
 // Route::get('userlist', function () {
