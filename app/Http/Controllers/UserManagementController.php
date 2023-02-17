@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UserManagement;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Support\Facades\DB;
 use App\Models\UserManagement as um;
 
-class UserDeleteController extends Controller
+
+class UserManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +20,9 @@ class UserDeleteController extends Controller
      */
     public function index()
     {
-        // $user = um::find($id);
-        // if($user instanceof um){
-        //     $user->delete();
-        // }
+        $userlist = um::all();
 
-        // var_dump($user);
-
-        // $user = array();
-        return response()->json($user);
-
+        return view('user_management',compact('userlist'));
     }
 
     /**
@@ -44,16 +43,6 @@ class UserDeleteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
-        $id = $request->get('id');
-        foreach($id as $v){
-            $user = um::find($v);
-            if($user instanceof um){
-                $user->delete();
-            }    
-        }
-        return redirect('user_management');
 
     }
 

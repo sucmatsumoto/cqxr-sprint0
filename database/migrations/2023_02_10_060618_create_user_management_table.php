@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('first_name')->comment('名（漢字、ひらがな、カナ、アルファベット）')->nullable(false);
             $table->string('last_name_kana')->comment('姓（カナ）')->nullable(false);
             $table->string('first_name_kana')->comment('名（カナ）')->nullable(false);
-            $table->string('mail_address_dacc')->comment('メールアドレス（ビジdアカ）')->nullable()->change();
-            $table->string('mail_address_apple')->comment('メールアドレス（Apple ID） ')->nullable();
-            $table->integer('tel_number')->comment('電話番号 ')->nullable();
-            $table->string('belong_organization')->comment('所属組織 ')->nullable();
+            $table->string('mail_address_dacc')->comment('メールアドレス（ビジdアカ）')->nullable();
+            $table->string('mail_address_apple')->comment('メールアドレス（Apple ID）')->nullable();
+            $table->string('tel_number')->comment('電話番号 ')->nullable();
+            $table->string('belong_organization')->comment('所属組織')->nullable();
             $table->string('position')->comment('役職')->nullable();
             $table->timestamps();
         });

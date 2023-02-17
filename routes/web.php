@@ -20,18 +20,36 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 // use App\user;
 // use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-   return view('welcome');
+   Log::info("!!!! call index");
+   return view('index');
 });
 // Route::resource('/userlist', UserlistController::class);
 // Route::resource('/user/{id}', UserController::class);
 
 Route::resource('/user_regist', UserRegistController::class);
 Route::resource('/user_update', UserUpdateController::class);
-Route::resource('/user_delete/{id}', UserDeleteController::class);
+
+Route::resource('/user_management', UserManagementController::class);
+
+Route::resource('/user_delete', UserDeleteController::class);
+
+Route::resource('/user_export', UserExportController::class);
+
+
+//ルーム
+Route::resource('/room/roomlist', 'Room\RoomListController');
+Route::resource('/room/getteamwork', 'Room\GetTeamworkController');
+Route::resource('/room/getcollaboration', 'Room\GetCollaborationController');
+Route::resource('/room/updatename', 'Room\UpdateNameController');
+Route::resource('/room/addteamwork', 'Room\AddTeamworkController');
+Route::resource('/room/addcollaboration', 'Room\AddCollaborationController');
+
 
 
 

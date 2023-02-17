@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\UserManagement as um;
 
-class UserDeleteController extends Controller
+class UserExportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +15,15 @@ class UserDeleteController extends Controller
      */
     public function index()
     {
-        // $user = um::find($id);
-        // if($user instanceof um){
-        //     $user->delete();
-        // }
+        $csv = "1,2,3";
 
-        // var_dump($user);
-
-        // $user = array();
-        return response()->json($user);
-
+        $csv = mb_convert_encoding($csv, 'sjis-win', 'UTF-8');   //文字コードを変換
+        $headers = array(                     //ヘッダー情報を指定する
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=user_all.csv'
+        );
+        
+        return response()->make($csv, 200, $headers);   //ファイルをダウンロードする        
     }
 
     /**
@@ -45,16 +45,6 @@ class UserDeleteController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request->all());
-        $id = $request->get('id');
-        foreach($id as $v){
-            $user = um::find($v);
-            if($user instanceof um){
-                $user->delete();
-            }    
-        }
-        return redirect('user_management');
-
     }
 
     /**

@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Room;
 
 use Illuminate\Http\Request;
-use App\Models\UserManagement as um;
+use App\Models\TeamworkRoom;
+use App\Models\CollaborationRoom;
+use App\Http\Controllers\Controller;
 
-class UserDeleteController extends Controller
+class UpdateNameController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +16,7 @@ class UserDeleteController extends Controller
      */
     public function index()
     {
-        // $user = um::find($id);
-        // if($user instanceof um){
-        //     $user->delete();
-        // }
-
-        // var_dump($user);
-
-        // $user = array();
-        return response()->json($user);
-
+        return view('update_name');
     }
 
     /**
@@ -44,17 +37,21 @@ class UserDeleteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
-        $id = $request->get('id');
-        foreach($id as $v){
-            $user = um::find($v);
-            if($user instanceof um){
-                $user->delete();
-            }    
-        }
-        return redirect('user_management');
+        $room_id = $request->input("room_id");
+        $new_name  = $request->input("new_name");
+        CollaborationRoom::wherecollaboration_room_id($room_id)->update(['room_name' => $new_name]);
+        $room = CollaborationRoom::wherecollaboration_room_id($room_id)->first();
 
+        // $room->room_name = $new_name;
+        // $room->save();
+
+        $response['room_id'] = $room['collaboration_room_id'];
+        $response['room_name'] = $room['room_name'];
+        $response['capacity'] = $room['capacity'];
+        $response['duns_number'] = $room['duns_number'];
+        $response['content_id'] = $room['object_id'];
+
+        return response()->json($response);
     }
 
     /**

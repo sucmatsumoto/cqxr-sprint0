@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Room;
 
 use Illuminate\Http\Request;
-use App\Models\UserManagement as um;
+use App\Models\TeamworkRoom;
+use App\Models\CollaborationRoom;
+use App\Http\Controllers\Controller;
 
-class UserDeleteController extends Controller
+class AddCollaborationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +16,7 @@ class UserDeleteController extends Controller
      */
     public function index()
     {
-        // $user = um::find($id);
-        // if($user instanceof um){
-        //     $user->delete();
-        // }
-
-        // var_dump($user);
-
-        // $user = array();
-        return response()->json($user);
-
+        return view('add_collaboration');
     }
 
     /**
@@ -44,17 +37,30 @@ class UserDeleteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
-        $id = $request->get('id');
-        foreach($id as $v){
-            $user = um::find($v);
-            if($user instanceof um){
-                $user->delete();
-            }    
-        }
-        return redirect('user_management');
+        $room_name = $request->input("room_name");
+        $capacity  = $request->input("capacity");
+        $duns_number  = $request->input("duns_number");
+        $content_id = $request->input("content_id");
 
+
+
+        $room = CollaborationRoom::create([
+            'room_name'             => $room_name,
+            'capacity'              => $capacity,
+            'duns_number'           => $duns_number,
+            'object_id'             => $content_id,
+        ]);
+        $room->save();
+
+        $addroom = CollaborationRoom::wherecollaboration_room_id($room->id)->first();
+        $response['room_id'] = $addroom['collaboration_room_id'];
+        $response['content_id'] = $addroom['object_id'];
+        $response['room_name'] = $addroom['room_name'];
+        $response['capacity'] = $addroom['capacity'];
+        $response['duns_number'] = $addroom['duns_number'];
+
+
+        return response()->json($response);
     }
 
     /**

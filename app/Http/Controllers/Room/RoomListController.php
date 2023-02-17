@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Room;
 
 use Illuminate\Http\Request;
-use App\Models\UserManagement as um;
+use App\Models\TeamworkRoom;
+use App\Models\CollaborationRoom;
+use App\Http\Controllers\Controller;
 
-class UserDeleteController extends Controller
+class RoomListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +16,7 @@ class UserDeleteController extends Controller
      */
     public function index()
     {
-        // $user = um::find($id);
-        // if($user instanceof um){
-        //     $user->delete();
-        // }
-
-        // var_dump($user);
-
-        // $user = array();
-        return response()->json($user);
-
+        return view('room_list');
     }
 
     /**
@@ -44,17 +37,27 @@ class UserDeleteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
-        $id = $request->get('id');
-        foreach($id as $v){
-            $user = um::find($v);
-            if($user instanceof um){
-                $user->delete();
-            }    
-        }
-        return redirect('user_management');
+        $duns_number = $request->input("duns_number");
+        $t_room = TeamworkRoom::whereduns_number($duns_number)->first();
+        $c_room = CollaborationRoom::whereduns_number($duns_number)->first();
 
+        $response = array("TeamworkRoom" => array(),"CollaborationRoom" => array());
+
+        $t['room_id'] = $t_room['teamwork_room_id'];
+        $t['content_id'] = $t_room['object_id'];
+        $t['room_name'] = $t_room['room_name'];
+        $t['capacity'] = $t_room['capacity'];
+        $t['duns_number'] = $t_room['duns_number'];
+
+        $c['room_id'] = $c_room['collaboration_room_id'];
+        $c['room_name'] = $c_room['room_name'];
+        $c['capacity'] = $c_room['capacity'];
+        $c['duns_number'] = $c_room['duns_number'];
+        $c['content_id'] = $c_room['object_id'];
+
+        array_push($response["TeamworkRoom"],$t);
+        array_push($response["CollaborationRoom"],$c);
+        return response()->json($response);
     }
 
     /**
