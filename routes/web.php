@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\Log;
 // use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-   Log::info("!!!! call index");
    return view('index');
 });
 // Route::resource('/userlist', UserlistController::class);

@@ -49,7 +49,7 @@ class UpdateNameController extends Controller
         $response['room_name'] = $room['room_name'];
         $response['capacity'] = $room['capacity'];
         $response['duns_number'] = $room['duns_number'];
-        $response['content_id'] = $room['object_id'];
+        $response['object_id'] = $room['object_id'];
 
         return response()->json($response);
     }

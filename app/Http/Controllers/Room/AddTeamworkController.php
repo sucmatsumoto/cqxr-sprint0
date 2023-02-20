@@ -40,7 +40,7 @@ class AddTeamworkController extends Controller
         $room_name = $request->input("room_name");
         $capacity  = $request->input("capacity");
         $duns_number  = $request->input("duns_number");
-        $content_id = $request->input("content_id");
+        $object_id = $request->input("object_id");
 
 
 
@@ -48,13 +48,13 @@ class AddTeamworkController extends Controller
             'room_name'             => $room_name,
             'capacity'              => $capacity,
             'duns_number'           => $duns_number,
-            'object_id'             => $content_id,
+            'object_id'             => $object_id,
         ]);
         $room->save();
 
         $addroom = TeamworkRoom::whereteamwork_room_id($room->id)->first();
         $response['room_id'] = $addroom['teamwork_room_id'];
-        $response['content_id'] = $addroom['object_id'];
+        $response['object_id'] = $addroom['object_id'];
         $response['room_name'] = $addroom['room_name'];
         $response['capacity'] = $addroom['capacity'];
         $response['duns_number'] = $addroom['duns_number'];

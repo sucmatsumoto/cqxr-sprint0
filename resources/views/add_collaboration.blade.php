@@ -71,7 +71,7 @@
         room_name <input type="text" id="room_name" name="room_name" min="1" max="100">
         capacity <input type="number" id="capacity" name="capacity" min="1" max="100">
         duns_number <input type="number" id="duns_number" name="duns_number" min="1" max="100">
-        content_id <input type="text" id="content_id" name="content_id" min="1" max="100">
+        object_id <input type="text" id="object_id" name="object_id" min="1" max="100">
 
         <input type="submit" value="送信" />
         </form>

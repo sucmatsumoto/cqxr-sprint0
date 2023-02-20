@@ -41,7 +41,7 @@ class GetTeamworkController extends Controller
         $room = TeamworkRoom::whereteamwork_room_id($room_id)->first();
 
         $response['room_id'] = $room['teamwork_room_id'];
-        $response['content_id'] = $room['object_id'];
+        $response['object_id'] = $room['object_id'];
         $response['room_name'] = $room['room_name'];
         $response['capacity'] = $room['capacity'];
         $response['duns_number'] = $room['duns_number'];

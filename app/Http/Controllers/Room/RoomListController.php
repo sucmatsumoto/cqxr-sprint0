@@ -41,10 +41,10 @@ class RoomListController extends Controller
         $t_room = TeamworkRoom::whereduns_number($duns_number)->first();
         $c_room = CollaborationRoom::whereduns_number($duns_number)->first();
 
-        $response = array("TeamworkRoom" => array(),"CollaborationRoom" => array());
+        $response = array("TeamworkRooms" => array(),"CollaborationRooms" => array());
 
         $t['room_id'] = $t_room['teamwork_room_id'];
-        $t['content_id'] = $t_room['object_id'];
+        $t['object_id'] = $t_room['object_id'];
         $t['room_name'] = $t_room['room_name'];
         $t['capacity'] = $t_room['capacity'];
         $t['duns_number'] = $t_room['duns_number'];
@@ -53,10 +53,10 @@ class RoomListController extends Controller
         $c['room_name'] = $c_room['room_name'];
         $c['capacity'] = $c_room['capacity'];
         $c['duns_number'] = $c_room['duns_number'];
-        $c['content_id'] = $c_room['object_id'];
+        $c['object_id'] = $c_room['object_id'];
 
-        array_push($response["TeamworkRoom"],$t);
-        array_push($response["CollaborationRoom"],$c);
+        array_push($response["TeamworkRooms"],$t);
+        array_push($response["CollaborationRooms"],$c);
         return response()->json($response);
     }
 
